@@ -1,0 +1,21 @@
+
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+  @layer base {
+    @font-face {
+        font-family: 'ABeeZee-Regular';
+        font-style: normal;
+        font-weight: 400;
+        src: url('../assets/fonts/ABeeZee-Regular.ttf');
+      }
+  
+  }
+  :root {
+    --ion-font-family: 'ABeeZee-Regular';
+  }
+
+  body{
+    font-family: 'ABeeZee-Regular';
+  }
