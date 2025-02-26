@@ -1,0 +1,28 @@
+.passwordSuggestion {
+  display: flex;
+  flex-direction: row;
+  gap: 3px;
+  align-items: center;
+  margin-top: 10px;
+  color: gray;
+}
+
+.signupButton{
+  width: 100%;
+  padding: 10px;
+  background-color: var(--color-teal-500);
+  color: white;
+  font-weight: 500;
+  border-radius: 10px;
+  margin-top: 20px;
+}
+// convert to scss.  flex items-start gap-3
+.iterms{
+  display: flex;
+  flex-direction: row;
+  gap: 5px;
+  align-items: flex-start;
+  justify-content: space-between;
+
+  
+}
