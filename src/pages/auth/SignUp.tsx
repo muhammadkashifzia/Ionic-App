@@ -1,21 +1,20 @@
-import React, { useState } from 'react'
-import { ArrowLeft, Mail, Lock, EyeOff, User, Shield, HelpCircle, Eye } from 'lucide-react'
-import { useIonRouter } from '@ionic/react'
-// import circleSvg from '../../assets/svgs/circleSvg.jsx';
-import { IonIcon } from '@ionic/react';
-const SignUp = () => {
-  const [showPassword, setShowPassword] = useState(false)
-  const [agreedToTerms, setAgreedToTerms] = useState(false)
+import React, { useState } from 'react';
+import { useIonRouter } from '@ionic/react';
+import { ArrowLeft, Mail, Lock, EyeOff, User, Shield, HelpCircle, Eye } from 'lucide-react';
+// import circleSvg from '../../assets/svgs/circleSvg.svg';
 
-  const router = useIonRouter()
+const SignUp: React.FC = () => {
+  const [showPassword, setShowPassword] = useState<boolean>(false);
+  const [agreedToTerms, setAgreedToTerms] = useState<boolean>(false);
+  const router = useIonRouter();
 
   const handleRedirect = () => {
-    router.push('/signin', 'forward')
-  }
+    router.push('/signin', 'forward');
+  };
 
   return (
-    <div className='min-h-screen bg-white'>
-  <IonIcon src={circleSvg} className='w-72 h-72 absolute right-0' />
+    <div className='min-h-screen bg-white relative'>
+      {/* <img src={circleSvg} className='w-72 h-72 absolute right-0' alt='Background Design' /> */}
       <button className='p-4'>
         <ArrowLeft className='w-6 h-6 text-black' />
       </button>
@@ -24,13 +23,11 @@ const SignUp = () => {
       <div className='px-6 pt-8'>
         <h1 className='text-3xl font-bold text-black mb-2'>Sign Up</h1>
         <p className='text-gray-500 mb-8'>Create account and enjoy all services!</p>
-      
+
         {/* Sign Up Form */}
         <form className='space-y-6'>
           <div className='space-y-2'>
-            <label htmlFor='nickname' className='block text-black font-medium'>
-              Nick name
-            </label>
+            <label htmlFor='nickname' className='block text-black font-medium'>Nick name</label>
             <div className='relative'>
               <User className='absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400' />
               <input
@@ -43,9 +40,7 @@ const SignUp = () => {
           </div>
 
           <div className='space-y-2'>
-            <label htmlFor='email' className='block text-black font-medium'>
-              Email
-            </label>
+            <label htmlFor='email' className='block text-black font-medium'>Email</label>
             <div className='relative'>
               <Mail className='absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400' />
               <input
@@ -58,9 +53,7 @@ const SignUp = () => {
           </div>
 
           <div className='space-y-2'>
-            <label htmlFor='password' className='block text-black font-medium'>
-              Password
-            </label>
+            <label htmlFor='password' className='block text-black font-medium'>Password</label>
             <div className='relative'>
               <Lock className='absolute left-4 top-1/2 transform -translate-y-1/2 w-5 h-5 text-gray-400' />
               <input
@@ -72,12 +65,9 @@ const SignUp = () => {
               <button
                 type='button'
                 onClick={() => setShowPassword(!showPassword)}
-                className='absolute right-4 top-1/2 transform -translate-y-1/2'>
-                {showPassword ? (
-                  <Eye className='w-5 h-5 text-gray-400' />
-                ) : (
-                  <EyeOff className='w-5 h-5 text-gray-400' />
-                )}
+                className='absolute right-4 top-1/2 transform -translate-y-1/2'
+              >
+                {showPassword ? <Eye className='w-5 h-5 text-gray-400' /> : <EyeOff className='w-5 h-5 text-gray-400' />}
               </button>
             </div>
           </div>
@@ -98,30 +88,23 @@ const SignUp = () => {
             />
             <label htmlFor='terms' className='text-gray-500'>
               I agree to the company's{' '}
-              <a href='#' className='text-teal-500 hover:text-teal-600'>
-                Term of Service
-              </a>{' '}
-              and{' '}
-              <a href='#' className='text-teal-500 hover:text-teal-600'>
-                Privacy Policy
-              </a>
+              <a href='#' className='text-teal-500 hover:text-teal-600'>Term of Service</a>{' '}and{' '}
+              <a href='#' className='text-teal-500 hover:text-teal-600'>Privacy Policy</a>
             </label>
           </div>
 
-          <button type='submit' className='w-full py-3 rounded-xl bg-primary text-white'>
+          <button type='submit' className='w-full py-3 rounded-xl bg-[#D3FFF2] text-[#101010] hover:bg-[#199A8E] hover:text-white'>
             Sign Up
           </button>
 
           <p className='text-center text-gray-500'>
             Have an account?{' '}
-            <a onClick={handleRedirect} className='text-teal-500 hover:text-teal-600'>
-              Login
-            </a>
+            <span onClick={handleRedirect} className='text-teal-500 hover:text-teal-600 cursor-pointer'>Login</span>
           </p>
         </form>
       </div>
     </div>
-  )
-}
+  );
+};
 
-export default SignUp
+export default SignUp;

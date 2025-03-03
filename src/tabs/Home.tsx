@@ -1,20 +1,16 @@
-        import { IonPage, IonContent, IonButton, IonText } from "@ionic/react";
-        import { useHistory } from "react-router-dom";
-        
-        const Home: React.FC = () => {
-          const history = useHistory();
-        
-          return (
-            <IonPage>
-              <IonContent className="ion-padding">
-                <IonText>You can track assessments and view reports.</IonText>
-                <IonButton expand="full" onClick={() => history.push("/onboarding3")}>
-                  Next
-                </IonButton>
-              </IonContent>
-            </IonPage>
-          );
-        };
-        
-        export default Home;
-        
+import { IonPage, IonContent, IonButton, IonText } from "@ionic/react";
+import { useHistory } from "react-router-dom";
+import WelcomeHeader from "../components/home/WelcomeHeader";
+import News from "../components/home/NewsSection";
+import Video  from "../components/home/InsightsVideo";
+const Home: React.FC = () => {
+  const history = useHistory();
+
+  return <div className="overflow-y-auto h-full">
+    <WelcomeHeader />
+    <News />
+    <Video />
+  </div>;
+};
+
+export default Home;

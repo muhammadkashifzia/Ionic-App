@@ -18,20 +18,21 @@ const VerifyOtp: React.FC = ({ history, location }: any) => {
   const [timer, setTimer] = useState(60);
   const [isResendDisabled, setIsResendDisabled] = useState(true);
 
-  // const verifyEmail = useVerifyEmail(history, from);
-  // const resendOtp = useResendOTP();
-
+  const verifyEmailMutation = useVerifyEmail(from);
+  const resendOTPMutation = useResendOTP();
+  const resendOTP = resendOTPMutation.mutateAsync;
+  const VerifyEmail = verifyEmailMutation.mutate;
   const handleSubmitOtp = (values: any) => {
-    // verifyEmail.mutate({ email, otp: values.otp });
+    VerifyEmail(email, values.otp);
   };
-
+  
   const handleResend = () => {
-    // resendOtp.mutate({ email }, {
-    //   onSuccess: () => {
-    //     setTimer(60);
-    //     setIsResendDisabled(true);
-    //   }
-    // });
+    resendOTP(email).then(() => {
+      setTimer(60);
+      setIsResendDisabled(true);
+    }).catch((error) => {
+      console.error('Error resending OTP:', error);
+    });
   };
 
   useEffect(() => {
