@@ -10,6 +10,7 @@ import HomeTabSvg from "../assets/svgs/homeTab.svg";
 import AddAssessmentTabSvg from "../assets/svgs/addAssessmentTab.svg";
 import ComparisonTabSvg from "../assets/svgs/comparisonTab.svg";
 import ProfileTabSvg from "../assets/svgs/profileTab.svg";
+import NewsList from "./news/newsList";
 const TabNavigation: React.FC = () => {
   const location = useLocation();
 
@@ -20,6 +21,7 @@ const TabNavigation: React.FC = () => {
         <Route exact path="/tabs/add-assessment" component={AddAssessment} />
         <Route exact path="/tabs/comparison" component={Comparison} />
         <Route exact path="/tabs/profile" component={Profile} />
+           <Route exact path='/tabs/news' component={NewsList} />
         <Redirect exact from="/" to="/tabs/home" />
       </IonRouterOutlet>
 

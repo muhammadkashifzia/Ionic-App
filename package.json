@@ -39,6 +39,7 @@
     "react-query": "^3.39.3",
     "react-router": "^5.3.4",
     "react-router-dom": "^5.3.4",
+    "react-shimmer-effect": "^1.0.9",
     "react-youtube": "^10.1.0",
     "yup": "^1.6.1"
   },

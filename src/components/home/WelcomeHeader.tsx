@@ -26,8 +26,8 @@ const WelcomeHeader: React.FC = () => {
           <div className="mt-[10px]">
             <p className="text-xl font-semibold mb-[13px]">今月の合計ポイント ✨</p>
             <div className="flex items-center gap-2 mt-1">
-              <p className="bg-green-700 px-3 py-1 rounded-full">{allPoints}ポイント</p>
-              <p>継続して頑張りましょう。</p>
+              <p className="bg-[#126E66] px-3 py-1 rounded-full text-[14px]">{allPoints}ポイント</p>
+              <p className='text-[14px]'>継続して頑張りましょう。</p>
             </div>
           </div>
         </div>

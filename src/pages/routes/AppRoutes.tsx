@@ -12,6 +12,7 @@ import { useOnboarding } from "../context/OnboardingContext";
 import Onboarding1 from "../onboarding/Onboarding1";
 import Onboarding2 from "../onboarding/Onboarding2";
 import Onboarding3 from "../onboarding/Onboarding3";
+
 import Tabs from "../Tabs";
 import "../../theme/global.css";
 
@@ -36,6 +37,7 @@ const AppRoutes: React.FC = () => {
     <Route exact path='/success' component={Success} />
     <Route exact path='/forgot-password' component={ForgotPassword} />
     <Route exact path='/new-password' component={NewPassword} />
+
 
     {/* Protected Routes: Redirect to SignIn if not logged in */}
     <PrivateRoute path='/tabs' component={Tabs} />

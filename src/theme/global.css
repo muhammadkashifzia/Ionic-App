@@ -13,3 +13,6 @@
 .thumbnail-image #shadow-root img {
     border-radius: 12px;
 }
+.native-textarea{
+    width: 100%;
+}

@@ -9,7 +9,6 @@ interface NewsCardProps {
 }
 
 const NewsCard: React.FC<NewsCardProps> = ({ title, createdAt, isLast, onPress }) => {
-  // Format the date to a more readable format
   const formattedDate =
     new Date(createdAt)
       .toLocaleDateString("ja-JP", {
@@ -23,7 +22,7 @@ const NewsCard: React.FC<NewsCardProps> = ({ title, createdAt, isLast, onPress }
   return (
     <div 
       onClick={onPress} 
-      className={`bg-white border-b border-gray-300 pb-[16px] ${isLast ? 'mb-0 border-b-0 pb-0' : 'mb-0'}`}
+      className={`border-b border-gray-300 pb-[16px] ${isLast ? 'mb-0 border-b-0 pb-0' : 'mb-0'}`}
     >
       <div>
         <div className="text-base text-gray-900 font-normal font-[ABeeZee-Regular] mb-1">

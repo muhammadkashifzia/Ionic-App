@@ -30,8 +30,8 @@ const TakeAssessment: React.FC = () => {
           <div className="w-full h-[18px] bg-gradient-to-r from-green-600 via-orange-500 to-red-600 rounded-[12px] mb-3 px-2"></div>
           <div className="absolute top-[50%] transform -translate-y-1/2 left-0  w-full px-2">
             <div className="flex justify-between">
-              <span className="text-xs text-white">軽度</span>
-              <span className="text-xs text-white">重度</span>
+              <span className="text-[12px] text-white">軽度</span>
+              <span className="text-[12px] text-white">重度</span>
             </div>
           </div>
         </div>
@@ -71,8 +71,8 @@ const TakeAssessment: React.FC = () => {
         <div className="relative">
         <div className="w-full h-[18px] bg-gradient-to-r from-red-600 via-orange-500 to-green-600 rounded-[12px] mb-3"></div>
         <div className="flex justify-between absolute top-[50%] transform -translate-y-1/2 left-0 w-full px-2">
-          <span className="text-xs text-white">全くできなかった</span>
-          <span className="text-xs text-white">目標通りできた</span>
+          <span className="text-[12px] text-white">全くできなかった</span>
+          <span className="text-[12px] text-white">目標通りできた</span>
         </div>
         </div>
         <div className="flex border border-gray-400 rounded-lg overflow-hidden mt-3">
@@ -80,9 +80,9 @@ const TakeAssessment: React.FC = () => {
             <button
               key={index}
               onClick={() => formik.setFieldValue("exercise", index)}
-              className={`flex flex-1 justify-center items-center py-2 border-l border-gray-400 ${
+              className={`flex flex-1 justify-center items-center py-2 border-l border-gray-400 mb-0 ${
                 formik.values.exercise === index
-                  ? "bg-green-600 text-white"
+                  ? "bg-[#199A8E] text-white"
                   : "bg-white text-black"
               }`}
             >

@@ -5,13 +5,13 @@ import * as yup from 'yup';
 import { yupResolver } from '@hookform/resolvers/yup';
 import { Camera, CameraResultType, CameraSource } from '@capacitor/camera';
 import { Preferences } from '@capacitor/preferences';
-import TakeAssessment from '../components/news/takeAssessment';
+import TakeAssessment from '../components/assessment/takeAssessment';
 const schema = yup.object().shape({
   description: yup.string().max(500, 'Description must be less than 500 characters'),
 });
 
 interface AssessmentFormData {
-  description: string;
+  description?: string;
 }
 
 interface TakeAssessmentProps {
@@ -60,7 +60,7 @@ const AssessmentForm = () => {
     setImage(`data:image/jpeg;base64,${photo.base64String}`);
   };
 
-  const onSubmit = async (data: { description: string }) => {
+  const onSubmit = async (data: AssessmentFormData) => {
     await Preferences.set({ key: 'lastSubmissionTime', value: new Date().toISOString() });
     alert('Assessment submitted successfully!');
     reset();
@@ -94,7 +94,7 @@ const AssessmentForm = () => {
           }
           isSubmitted={isSubmitted} // Pass the submission state
         />
-        <div className='bg-[#F3F3F3] p-[10px] rounded-[4px] mt-[20px]'>
+        <div className='bg-[#F3F3F3] p-[10px] rounded-[4px] my-[20px]'>
       <p>今日の爪、髪の毛、皮膚等の状態の画像を
       アップロードして記録してみましょう。（任意）</p>
       {image && <IonImg src={image} className="rounded-md mb-4 mt-[10px]" />}
@@ -109,16 +109,15 @@ const AssessmentForm = () => {
           control={control}
           render={({ field }: ControllerFieldProps) => (
             <IonItem className="mb-4 w-full">
-              <IonLabel position="stacked">フリーテキスト（150文字以内）</IonLabel>
-              <div className='border border-[#D1D5DB] p-[12px] rounded-[12px]'><IonTextarea {...field} placeholder="本日の症状などの感想を任意で150文字以内でご記入ください。" rows={6} cols={38} /></div>
+              <p  className='mb-[5px]'>フリーテキスト（150文字以内）</p>
+              <div className='border border-[#D1D5DB] p-[12px] rounded-[12px]'><IonTextarea {...field} placeholder="本日の症状などの感想を任意で150文字以内でご記入ください。" rows={3} cols={40} /></div>
             </IonItem>
           )}
-        />
+        />  
 
         <button
           onClick={handleSubmit(onSubmit)}
-          expand="block"
-          disabled={isDisabled}
+          // disabled={isDisabled}
           className="mb-4 bg-[#199A8E] text-white rounded-md px-4 py-2 w-full mt-[13px]"
         >
           記録する
