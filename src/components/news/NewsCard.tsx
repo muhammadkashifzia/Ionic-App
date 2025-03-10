@@ -1,5 +1,4 @@
 import React from "react";
-import { IonCard, IonCardContent, IonText } from "@ionic/react";
 
 interface NewsCardProps {
   title: string;

@@ -66,27 +66,24 @@ const OtpInput: React.FC<OtpInputProps> = ({
   };
 
   return (
-    <div className="flex justify-center gap-4">
+    <div className="flex justify-center gap-[14px]">
       {[...Array(length)].map((_, index) => (
-        <IonItem key={index} className="flex-1">
-          <IonLabel position="floating" className="text-sm">
-            OTP
-          </IonLabel>
-          <IonInput
+        <div key={index} className="flex-1">  
+          <input
             ref={(ref) => {
               if (ref) inputRefs.current[index] = ref;
             }}
             className={`w-full max-w-[120px] h-[50px] border rounded-lg text-center font-normal text-lg ${
-              focusedIndex === index ? 'border-teal-500 bg-teal-100' : 'border-gray-300'
+              focusedIndex === index ? 'border-teal-500' : 'border-gray-300'
             } ${hasError ? 'border-red-500' : ''}`}
-            maxlength={1}
+            maxlength={1} 
             value={value[index] || ''}
             onIonInput={(e: any) => handleChange(e.target.value, index)}
             onKeyUp={(e) => handleKeyPress(e, index)}
             onFocus={() => handleFocus(index)}
             type="number"
           />
-        </IonItem>
+        </div>
       ))}
     </div>
   );

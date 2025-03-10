@@ -14,7 +14,7 @@ const OnBoarding1: React.FC = () => {
     <IonPage>
       <IonContent className="flex flex-col justify-between items-center h-screen">
         {/* Top Section */}
-        <div className="relative flex flex-col items-center w-full min-h-[550px] max-h-[800px] bg-teal-700 rounded-b-[60px] overflow-hidden justify-end px-6">
+        <div className="relative flex flex-col items-center w-full min-h-[550px] max-h-[800px] bg-[#199A8E] rounded-b-[60px] overflow-hidden justify-end px-6">
           <IonIcon src={OnBoarding1Svg} className="w-full h-auto mt-14" />
           {/* <IonIcon src={CircleSvg} className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2" />
           <IonIcon src={ShadeSvg} className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2" /> */}

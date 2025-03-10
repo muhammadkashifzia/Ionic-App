@@ -1,4 +1,4 @@
-import { IonPage, IonContent, IonButton, IonText } from "@ionic/react";
+
 import { useHistory } from "react-router-dom";
 import WelcomeHeader from "../components/home/WelcomeHeader";
 import News from "../components/home/NewsSection";

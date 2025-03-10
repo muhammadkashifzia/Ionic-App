@@ -40,7 +40,9 @@ const ListAssessment: React.FC = () => {
     setSelectedDate(new Date(year, selectedMonth - 1, 1));
     setShowYearDropdown(false);
   };
-
+  const renderStars = (count: number) => {
+    return <p className='text-[#FFBE00]'>{'★'.repeat(count)}</p>;
+  };
   return (
     <div>
       <button className="ml-auto flex justify-end" onClick={() => setShowDropdown(!showDropdown)}>
@@ -107,18 +109,20 @@ const ListAssessment: React.FC = () => {
                   alt="Assessment"
                   className="w-16 h-16 rounded-lg"
                 />
-                <div className="flex flex-col space-y-2">
+                <div className="flex flex-col space-y-2 w-full">
                   <div className="flex items-center space-x-4">
-                    <span className="text-sm">症状の程度:</span>
-                    <div className="bg-[#199A8E] text-white px-3 py-1 rounded-lg text-xs">
+                    <span className="text-sm w-full max-w-[92px]">症状の程度:</span>
+                    <div className="bg-[#199A8E] text-white px-3 py-1 rounded-full text-xs w-full max-w-[91px] items-center justify-center flex">
                       {assessment.pointRating}/5
                     </div>
                   </div>
                   <div className="flex items-center space-x-4">
-                    <span className="text-sm">エクササイズ:</span>
-                    <div className="bg-[#199A8E] text-white px-3 py-1 rounded-lg text-xs">
+                    <span className="text-sm w-full max-w-[92px]">エクササイズ:</span>
+                    <div className="bg-[#199A8E] text-white px-3 py-1 rounded-full text-xs flex gap-1 w-full max-w-[91px] items-center justify-center">
                       {assessment.starRating}/3
+                      <div> {renderStars(assessment?.starRating)}</div>
                     </div>
+                 
                   </div>
                 </div>
               </div>

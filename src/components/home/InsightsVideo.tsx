@@ -66,7 +66,7 @@ const InsightsVideo: React.FC = () => {
               : FALLBACK_IMAGE;
 
             return (
-              <div key={video._id} className="mb-4 relative">
+              <div key={video._id} className="mb-4 relative ">
                 {playingVideo !== videoId ? (
                  <div className="relative"> 
                    <IonImg
@@ -74,7 +74,7 @@ const InsightsVideo: React.FC = () => {
                     className="rounded-t-lg cursor-pointer thumbnail-image"
                  
                   />
-                  <IonImg src={PlayIconSvg} className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[50px]"    onClick={() => setPlayingVideo(videoId)}/>
+                  <IonImg src={PlayIconSvg} className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2 w-[50px] "    onClick={() => setPlayingVideo(videoId)}/>
                   </div>
                 ) : (
                   <div className="relative">
