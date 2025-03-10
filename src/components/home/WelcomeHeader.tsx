@@ -8,7 +8,7 @@ import logoutSvg from '../../assets/svgs/logout.svg';
 import { useHistory } from 'react-router-dom';
 
 const WelcomeHeader: React.FC = () => {
-  const [userName, setUserName] = useState<string>('Dummy User');
+  const [userName, setUserName] = useState<string>('');
   const [allPoints, setAllPoints] = useState<number>(120);
  
   const history = useHistory();
