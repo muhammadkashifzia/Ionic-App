@@ -1,81 +1,69 @@
-import React, { useEffect } from 'react';
-import { motion, useAnimation } from 'framer-motion';
-import { CheckCircle, AlertCircle, Info, Triangle, X } from 'lucide-react';
+import React, { useState, useEffect, ReactNode } from "react";
+import { IonIcon } from "@ionic/react";
+import { checkmarkCircle, alertCircle, informationCircle, warning, close } from "ionicons/icons";
+
+type ToastType = "success" | "error" | "info" | "warning";
 
 interface ToastProps {
-  message: string;
-  type: 'success' | 'error' | 'info' | 'warning';
+  icon?: ReactNode; // Change string to ReactNode
+  text: string;
+  type?: ToastType;
   onClose: () => void;
 }
 
-const Toast = ({ message, type, onClose }: ToastProps) => {
-  const controls = useAnimation();
+const Toast: React.FC<ToastProps> = ({ icon, text, type = "info", onClose }) => {
+  const [isVisible, setIsVisible] = useState(true);
 
   const toastConfig = {
     success: {
-      backgroundColor: 'bg-[#167068]',
-      secondaryColor: 'bg-[#199a8e]',
-      icon: <CheckCircle size={24} className="text-white" />,
-      shadowColor: 'shadow-[#065F46]',
+      backgroundColor: "bg-green-700",
+      secondaryColor: "bg-green-600",
+      icon: icon || <IonIcon icon={checkmarkCircle} className="text-white text-xl" />, // Ensure icon is a ReactNode
     },
     error: {
-      backgroundColor: 'bg-[#EF4444]',
-      secondaryColor: 'bg-[#DC2626]',
-      icon: <AlertCircle size={24} className="text-white" />,
-      shadowColor: 'shadow-[#991B1B]',
+      backgroundColor: "bg-red-600",
+      secondaryColor: "bg-red-500",
+      icon: icon || <IonIcon icon={alertCircle} className="text-white text-xl" />,
     },
     info: {
-      backgroundColor: 'bg-[#3B82F6]',
-      secondaryColor: 'bg-[#2563EB]',
-      icon: <Info size={24} className="text-white" />,
-      shadowColor: 'shadow-[#1E40AF]',
+      backgroundColor: "bg-",
+      secondaryColor: "bg-blue-500",
+      icon: icon || <IonIcon icon={informationCircle} className="text-white text-xl" />,
     },
     warning: {
-      backgroundColor: 'bg-[#F59E0B]',
-      secondaryColor: 'bg-[#D97706]',
-      icon: <Triangle size={24} className="text-white" />,
-      shadowColor: 'shadow-[#92400E]',
+      backgroundColor: "bg-yellow-500",
+      secondaryColor: "bg-yellow-400",
+      icon: icon || <IonIcon icon={warning} className="text-white text-xl" />,
     },
   };
 
   useEffect(() => {
-    // Slide in and fade in animation
-    controls.start({
-      opacity: 1,
-      y: 0,
-      transition: { duration: 0.4, ease: 'easeOut' },
-    });
+    const timeout = setTimeout(() => {
+      setIsVisible(false);
+      onClose();
+    }, 1113000);
 
-    // Auto-dismiss after 3 seconds
-    const dismissTimeout = setTimeout(() => {
-      controls.start({
-        opacity: 0,
-        y: -100,
-        transition: { duration: 0.3, ease: 'easeIn' },
-      }).then(onClose);
-    }, 3000);
+    return () => clearTimeout(timeout);
+  }, [onClose]);
 
-    return () => clearTimeout(dismissTimeout);
-  }, [controls, onClose]);
+  if (!isVisible) return null;
 
   const config = toastConfig[type];
 
   return (
-    <motion.div
-      initial={{ opacity: 0, y: -100 }}
-      animate={controls}
-      className={`fixed top-10 left-5 right-5 rounded-xl shadow-lg ${config.backgroundColor} ${config.shadowColor}`}
+    <div
+      className={`fixed top-10 left-5 right-5 p-4 rounded-lg shadow-lg ${config.backgroundColor} text-white z-50`}
     >
-      <div className="flex items-center p-4">
-        <div className={`w-10 h-10 rounded-full flex items-center justify-center ${config.secondaryColor}`}>
-          {config.icon}
-        </div>
-        <span className="ml-3 text-white text-base font-medium flex-1">{message}</span>
-        <button onClick={onClose} className="p-1 ml-2">
-          <X size={20} className="text-white opacity-80" />
-        </button>
+    <div className="flex items-center justify-between">
+    <div className={`w-10 h-10 rounded-full flex items-center justify-between ${config.secondaryColor} mr-3`}>
+        {config.icon}
       </div>
-    </motion.div>
+      <span className="font-medium inline">{text}</span>
+      <button onClick={onClose} className="ml-3 p-1">
+        <IonIcon icon={close} className="text-white text-lg opacity-80" />
+      </button>
+    </div>
+    </div>
   );
 };
 

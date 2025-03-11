@@ -1,92 +1,126 @@
-import React, { useRef, useState } from 'react';
-import { IonInput } from '@ionic/react';
-import { IonItem, IonLabel } from '@ionic/react';
-import { useIonViewWillEnter } from '@ionic/react';
+"use client"
+
+import { useRef, useState, type KeyboardEvent, type ClipboardEvent, type ChangeEvent } from "react"
 
 interface OtpInputProps {
-  length: number;
-  value: string;
-  onChange: (value: string) => void;
-  hasError?: boolean;
-  colorBlack?: boolean;
+  testID?: string
+  length: number
+  value: string
+  onChange: (value: string) => void
+  hasError?: boolean
+  colorBlack?: boolean
 }
 
-const OtpInput: React.FC<OtpInputProps> = ({
+export default function OtpInput({
+  testID,
   length,
   value,
   onChange,
-  hasError,
-  colorBlack
-}) => {
-  const inputRefs = useRef<(HTMLIonInputElement | null)[]>([]);
-  const [focusedIndex, setFocusedIndex] = useState(0);
+  hasError = false,
+  colorBlack = false,
+}: OtpInputProps) {
+  const inputRefs = useRef<(HTMLInputElement | null)[]>([])
+  const [focusedIndex, setFocusedIndex] = useState<number>(0)
 
   const handleChange = (text: string, index: number) => {
     if (text?.length > 1) {
-      const newValue = value.split('');
+      // If a full OTP or more than one character is pasted
+      const newValue = value.split("")
       text
         .slice(0, length - index)
-        .split('')
+        .split("")
         .forEach((char, i) => {
           if (index + i < length) {
-            newValue[index + i] = char;
+            newValue[index + i] = char
           }
-        });
-      onChange(newValue.join(''));
+        })
+      onChange(newValue.join(""))
 
-      const nextIndex = Math.min(index + text?.length - 1, length - 1);
-      inputRefs.current[nextIndex]?.setFocus();
+      // Focus the next input after the last pasted character
+      const nextIndex = Math.min(index + text?.length - 1, length - 1)
+      inputRefs.current[nextIndex]?.focus()
     } else {
-      const newValue = value.split('');
-      newValue[index] = text;
-      onChange(newValue.join(''));
+      // Handle individual character input
+      const newValue = value.split("")
+      newValue[index] = text
+      onChange(newValue.join(""))
 
       if (text?.length > 0 && index < length - 1) {
-        inputRefs.current[index + 1]?.setFocus();
+        inputRefs.current[index + 1]?.focus()
       }
     }
-  };
+  }
 
-  const handleKeyPress = (event: React.KeyboardEvent, index: number) => {
-    if (event.key === 'Backspace') {
-      const newValue = value.split('');
+  const handleKeyDown = (event: KeyboardEvent<HTMLInputElement>, index: number) => {
+    if (event.key === "Backspace") {
+      const newValue = value.split("")
       if (newValue[index]) {
-        newValue[index] = '';
-        onChange(newValue.join(''));
+        newValue[index] = ""
+        onChange(newValue.join(""))
       } else if (index > 0) {
-        inputRefs.current[index - 1]?.setFocus();
-        newValue[index - 1] = '';
-        onChange(newValue.join(''));
+        // If the current input is empty, shift focus to the previous input
+        inputRefs.current[index - 1]?.focus()
+        newValue[index - 1] = "" // Remove the value from the previous index
+        onChange(newValue.join(""))
       }
+    } else if (event.key === "ArrowLeft" && index > 0) {
+      inputRefs.current[index - 1]?.focus()
+    } else if (event.key === "ArrowRight" && index < length - 1) {
+      inputRefs.current[index + 1]?.focus()
     }
-  };
+  }
+
+  const handlePaste = (event: ClipboardEvent<HTMLInputElement>, index: number) => {
+    event.preventDefault()
+    const pastedData = event.clipboardData.getData("text")
+    // Filter out non-numeric characters
+    const numericData = pastedData.replace(/\D/g, "")
+    handleChange(numericData, index)
+  }
+
+  const handleInputChange = (event: ChangeEvent<HTMLInputElement>, index: number) => {
+    // Only allow numeric input
+    const numericValue = event.target.value.replace(/\D/g, "")
+    handleChange(numericValue, index)
+  }
 
   const handleFocus = (index: number) => {
-    setFocusedIndex(index);
-  };
+    setFocusedIndex(index)
+  }
 
   return (
-    <div className="flex justify-center gap-[14px]">
+    <div className="flex flex-row justify-center gap-3.5" data-testid={testID}>
       {[...Array(length)].map((_, index) => (
-        <div key={index} className="flex-1">  
-          <input
-            ref={(ref) => {
-              if (ref) inputRefs.current[index] = ref;
-            }}
-            className={`w-full max-w-[120px] h-[50px] border rounded-lg text-center font-normal text-lg ${
-              focusedIndex === index ? 'border-teal-500' : 'border-gray-300'
-            } ${hasError ? 'border-red-500' : ''}`}
-            maxlength={1} 
-            value={value[index] || ''}
-            onIonInput={(e: any) => handleChange(e.target.value, index)}
-            onKeyUp={(e) => handleKeyPress(e, index)}
-            onFocus={() => handleFocus(index)}
-            type="number"
-          />
-        </div>
+        <input
+          key={index}
+          ref={(ref) => {
+            inputRefs.current[index] = ref
+          }}
+          className={`
+            w-full h-full max-w-[14.5%] min-h-[71px]
+            border rounded-xl text-center
+            text-2xl font-normal
+            bg-opacity-10 bg-gray-400
+            focus:outline-none
+            ${focusedIndex === index ? "border-2 bg-white bg-opacity-20" : "border"}
+            ${hasError ? "border-red-500" : "border-[#147B72]"}
+            ${colorBlack ? "text-[#147B72]" : "text-white"}
+          `}
+          type="text"
+          inputMode="numeric"
+          pattern="[0-9]*"
+          maxLength={1}
+          value={value[index] || ""}
+          onChange={(e) => handleInputChange(e, index)}
+          onKeyDown={(e) => handleKeyDown(e, index)}
+          onPaste={(e) => handlePaste(e, index)}
+          onFocus={() => handleFocus(index)}
+          style={{ fontFamily: "ABeeZee-Regular" }}
+        />
       ))}
     </div>
-  );
-};
+  )
+}
 
-export default OtpInput;
+export { OtpInput }
+

@@ -4,7 +4,7 @@ import { Route, Redirect, Switch } from "react-router-dom";
 import PrivateRoute from "./PrivateRoute";
 import  SignIn  from "../../pages/auth/SignIn";
 import SignUp from "../../pages/auth/SignUp";
-import OtpVerify from "../../pages/auth/OtpVerify.js";
+import OtpVerify from "../auth/verifyOtp.js";
 import Success from "../../pages/auth/Success.js";
 import ForgotPassword from "../../pages/auth/ForgotPassword.js";
 import NewPassword from "../../pages/auth/NewPassword.js";
@@ -33,7 +33,7 @@ const AppRoutes: React.FC = () => {
     {/* Authentication Routes */}
     <Route exact path='/signin' component={SignIn} />
     <Route exact path='/signup' component={SignUp} />
-    <Route exact path='/otp-verify' component={OtpVerify} />
+    <Route exact path='/verifyOtp' component={OtpVerify} />
     <Route exact path='/success' component={Success} />
     <Route exact path='/forgot-password' component={ForgotPassword} />
     <Route exact path='/new-password' component={NewPassword} />

@@ -135,9 +135,9 @@ interface VerifyEmailResponse {
   data: any;
 }
 
-export const verifyEmail = async (email: string, otp: string): Promise<VerifyEmailResponse> => {
+export const verifyEmail = async ({email, otp})=> {
   try {
-    const response = await axios.post('/verify-email', { email, otp });
+    const response = await api.post('https://nailbiting-server.vercel.app/api/v1/auth/email-verify', { email, otp });
     return response.data;
   } catch (error) {
     if (axios.isAxiosError(error)) {

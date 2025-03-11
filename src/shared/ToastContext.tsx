@@ -1,15 +1,17 @@
 import React, { createContext, useContext, useState, ReactNode } from 'react';
 import Toast from './Toast'; // Import the Toast component
 
-interface ToastProps {
-  icon: string;
-  text: string;
-  type?: 'info' | 'success' | 'warning' | 'error';
-}
+type ToastType = 'info' | 'success' | 'error' | 'warning';
 
-interface ToastContextType {
-  showToast: (icon: string, text: string, type?: 'info' | 'success' | 'warning' | 'error') => void;
-}
+type ToastProps = {
+  icon: ReactNode;
+  text: string;
+  type?: ToastType;
+};
+
+type ToastContextType = {
+  showToast: (icon: ReactNode, text: string, type?: ToastType) => void;
+};
 
 const ToastContext = createContext<ToastContextType | undefined>(undefined);
 
@@ -21,22 +23,21 @@ export const useToast = (): ToastContextType => {
   return context;
 };
 
-interface ToastProviderProps {
-  children: ReactNode;
-}
-
-export const ToastProvider: React.FC<ToastProviderProps> = ({ children }) => {
+export const ToastProvider: React.FC<{ children: ReactNode }> = ({ children }) => {
   const [toast, setToast] = useState<ToastProps | null>(null);
 
-  const showToast = (icon: string, text: string, type: 'info' | 'success' | 'warning' | 'error' = 'info') => {
+  const showToast = (icon: ReactNode, text: string, type: ToastType = 'info') => {
     setToast({ icon, text, type });
-    setTimeout(() => setToast(null), 3000); // Auto-hide after 3 seconds
+  };
+
+  const hideToast = () => {
+    setToast(null);
   };
 
   return (
     <ToastContext.Provider value={{ showToast }}>
       {children}
-      {toast && <Toast {...toast} onClose={() => setToast(null)} />}
+      {toast && <Toast {...toast} onClose={hideToast} />}
     </ToastContext.Provider>
   );
 };

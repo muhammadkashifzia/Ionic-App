@@ -121,28 +121,33 @@ interface VerifyEmailResponse {
   message?: string;
 }
 
-export const useVerifyEmail = (from: 'signup' | 'forgotPassword' | 'other') => {
-  const { showToast } = useToast();
-  const router = useIonRouter();
+type VerifySource = "signup" | "forgotPassword" | "other";
 
-  return useMutation<VerifyEmailResponse, any, VerifyEmailVariables>({
-    mutationFn: ({ email, otp }: VerifyEmailVariables) => verifyEmail(email, otp) as Promise<VerifyEmailResponse>,
-    onSuccess: async (response, variables) => {
-      showToast(response?.message || 'Email verified successfully!', 'success');
-      const userSaved = await Preferences.get({ key: 'userSaved' });
-      if (userSaved.value) {
-        let parsedUser = JSON.parse(userSaved.value);
-        parsedUser.isVerified = true;
-        await Preferences.set({ key: 'userSaved', value: JSON.stringify(parsedUser) });
-      }
-      if (from === 'signup') router.push('/accountSuccess?type=signup', 'forward');
-      else if (from === 'forgotPassword') router.push(`/resetPassword?email=${variables.email}&otp=${variables.otp}`, 'forward');
-      else router.push('/login', 'forward');
+export const useVerifyEmail = () => {
+  const router = useIonRouter()
+
+  const mutation = useMutation({
+    mutationFn: async ({ email, otp }) => {
+      return verifyEmail({ email, otp }) // ✅ Ensure correct function call
     },
-    onError: error => {
-      showToast(error?.response?.data?.message || 'Verification failed.', 'error');
-    }
-  });
+    onSuccess: (response) => {
+      console.log('Mutation Success Response:', response)
+
+      // Instead of checking `response.success`, check for the success message.
+      if (!response || !response.message ) {
+        console.error('Password verification failed. Please try again.')
+        return
+      }
+
+      console.log('✅ Password verification successfully! Navigating to /success')
+      router.push(`/success?type=signup`, 'forward')
+    },
+    onError: (error) => {
+      console.error('❌ OTP Verification Error:', error.message || 'OTP verification failed.')
+    },
+  })
+
+  return { ...mutation, isPending: mutation.isPending, error: mutation.error }
 };
 
 export const useUpdatePassword = () => {
