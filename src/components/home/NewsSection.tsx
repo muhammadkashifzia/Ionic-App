@@ -1,8 +1,9 @@
 import { useEffect, useState } from "react";
 import { useGetAllNews } from "../../hooks/useNews";
 import NewsCard from "../../components/news/NewsCard";
-
+import { useIonRouter } from "@ionic/react";
 export default function NewsSection() {
+  const router = useIonRouter();
   const { mutate, data, isLoading } = useGetAllNews();
   const [newsItems, setNewsItems] = useState<any[]>([]);
 
@@ -22,7 +23,7 @@ export default function NewsSection() {
         <div className="px-6 mb-6 z-30 mt-[20px]">
           <div className="flex justify-between mb-[12px]">
             <h2 className="text-sm font-normal text-gray-900  font-[ABeeZee-Regular]">お知らせ</h2>
-            <button  className="text-sm w-[75px] text-[#009ECC] font-normal ont-[ABeeZee-Regular]">
+            <button  className="text-sm w-[75px] text-[#009ECC] font-normal ont-[ABeeZee-Regular]"  onClick={() => router.push("/tabs/news")}>
               すべて表示
             </button>
           </div>

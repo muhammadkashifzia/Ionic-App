@@ -1,49 +1,135 @@
-import React from "react";
-import { IonPage, IonContent, IonIcon, IonButton, IonText } from "@ionic/react";
-import { useIonRouter } from "@ionic/react";
+"use client";
 
-// SVG Assets
-import OnBoarding2Svg from "../../assets/svgs/onBoarding2SVG.svg";
-// import CircleSvg from "../../assets/svgs/circleSvg.jsx";
-// import ShadeSvg from "../../assets/svgs/shadeSvg.js";  
+import type React from "react";
+import { IonIcon } from "@ionic/react";
+import { useHistory } from "react-router-dom";
+
+// Import SVG components
+// Note: You'll need to create these SVG components or import them properly
+import OnBoarding2SVG from "../../assets/svgs/onBoarding2SVG.svg";
+import CircleSvg from "../../assets/svgs/circleSvg.svg";
+import ShadeSvg from "../../assets/svgs/shadeSvg.svg";
+import { ArrowRight } from "lucide-react";
 
 const OnBoarding2: React.FC = () => {
-  const router = useIonRouter();
+  const history = useHistory();
 
   return (
-    <IonPage>
-      <IonContent className="flex flex-col justify-between items-center h-screen">
-        {/* Top Section */}
-        <div className="relative flex flex-col items-center w-full min-h-[550px] max-h-[800px] bg-[#199A8E] rounded-b-[60px] overflow-hidden justify-end px-6">
-          <IonIcon src={OnBoarding2Svg} className="w-[500px] h-[600px]" />
-          {/* <IonIcon src={CircleSvg} className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2" />
-          <IonIcon src={ShadeSvg} className="absolute top-1/2 left-1/2 transform -translate-x-1/2 -translate-y-1/2" /> */}
-        </div>
+    <div>
+      <div className="flex flex-col h-full">
+        <div className="flex flex-col h-full justify-between">
+          {/* Top Section with SVGs */}
+          <div className="relative bg-[#1D968B] overflow-hidden flex-1 items-center w-full max-h-[800px] pt-12 pb-2.5 rounded-bl-[60px] rounded-br-[60px] flex justify-end px-5">
+            <div className="absolute w-[218px] h-[208px] top-0 -left-6">
+              <svg
+                width="160"
+                height="168"
+                viewBox="0 0 160 168"
+                fill="none"
+                xmlns="http://www.w3.org/2000/svg"
+              >
+                <circle
+                  cx="-84"
+                  cy="-65.9995"
+                  r="172.5"
+                  stroke="white"
+                  stroke-opacity="0.4"
+                  stroke-width="3"
+                />
+                <circle
+                  cx="-34"
+                  cy="-35.9995"
+                  r="172.5"
+                  stroke="white"
+                  stroke-opacity="0.4"
+                  stroke-width="3"
+                />
+                <circle
+                  cx="-14"
+                  cy="-5.99947"
+                  r="172.5"
+                  stroke="white"
+                  stroke-opacity="0.4"
+                  stroke-width="3"
+                />
+              </svg>
+            </div>
+            <IonIcon
+              src={ShadeSvg}
+              className="absolute w-[418px] h-[308px] -top-12 -right-5"
+            />
+            <IonIcon src={OnBoarding2SVG} className="w-full h-[550px] z-10" />
+          </div>
 
-        {/* Text & Button Section */}
-        <div className="px-6 w-full flex flex-col items-start pb-4">
-          <IonText className="text-gray-600 text-lg leading-[20.8px] font-normal">
-            アプリで、あなたの困りごとを軽減するエクササイズを学習できます
-          </IonText>
+          {/* Bottom Section */}
+          <div className="mb-5">
+            {/* Text and Continue Button */}
+            <div className="px-6 justify-between flex flex-row items-start pt-6 mb-5 w-full">
+              <p className="text-base font-normal text-[#636466] text-left w-[258px]">
+                アプリで、あなたの困りごとを軽減するエクササイズを学習できます
+              </p>
 
-          {/* Continue Button */}
-          <IonButton
-            expand="full"
-            className="mt-10 bg-teal-600 text-white w-full"
-            onClick={() => router.push("/onboarding3", "forward")}
-          >
-            Continue
-          </IonButton>
+              <button
+                onClick={() => history.push("/onboarding3")}
+                className="m-0 p-0"
+              >
+                <div className="flex items-center justify-center ">
+                  <svg
+                    width="54"
+                    height="77"
+                    viewBox="0 0 54 77"
+                    fill="none"
+                    xmlns="http://www.w3.org/2000/svg"
+                  >
+                    <path
+                      d="M27 52C33.6304 52 39.9893 49.3661 44.6777 44.6777C49.3661 39.9893 52 33.6304 52 27C52 20.3696 49.3661 14.0107 44.6777 9.32233C39.9893 4.63392 33.6304 2 27 2"
+                      stroke="#199A8E"
+                      stroke-width="2.5"
+                      stroke-linecap="round"
+                    />
+                    <path
+                      opacity="0.1"
+                      d="M27 2C20.3696 2 14.0107 4.63392 9.32233 9.32233C4.63392 14.0107 2 20.3696 2 27C2 33.6304 4.63392 39.9893 9.32233 44.6777C14.0107 49.3661 20.3696 52 27 52"
+                      stroke="#9AA0A6"
+                      stroke-width="2.5"
+                      stroke-linecap="round"
+                    />
+                    <circle cx="27" cy="27" r="20" fill="#199A8E" />
+                    <path
+                      d="M25 22L29.8586 26.8586C29.9367 26.9367 29.9367 27.0633 29.8586 27.1414L25 32"
+                      stroke="#F1F3F4"
+                      stroke-width="1.5"
+                      stroke-linecap="round"
+                    />
+                    <rect
+                      x="4"
+                      y="71"
+                      width="32"
+                      height="6"
+                      rx="3"
+                      fill="#BEC2C7"
+                    />
+                    <circle cx="43" cy="74" r="3" fill="#E5E5E5" />
+                  </svg>
+                </div>
+              </button>
+            </div>
 
-          {/* Skip Button */}
-          <div className="flex justify-center w-full mt-3">
-            <IonButton fill="clear" className="text-gray-700 text-sm underline" onClick={() => router.push("/onboarding4", "forward")}>
-              スキップ
-            </IonButton>
+            {/* Skip Button */}
+            <div className="flex flex-row justify-center w-full items-center">
+              <button
+                onClick={() => history.push("/onboarding4")}
+                className="m-0 p-0"
+              >
+                <p className="text-[#202124] text-xs mb-5 text-center underline font-light tracking-wider">
+                  スキップ
+                </p>
+              </button>
+            </div>
           </div>
         </div>
-      </IonContent>
-    </IonPage>
+      </div>
+    </div>
   );
 };
 

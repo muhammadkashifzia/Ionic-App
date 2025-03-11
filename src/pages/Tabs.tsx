@@ -22,6 +22,7 @@ const TabNavigation: React.FC = () => {
         <Route exact path="/tabs/comparison" component={Comparison} />
         <Route exact path="/tabs/profile" component={Profile} />
            <Route exact path='/tabs/news' component={NewsList} />
+           <Route exact path='/tabs/news' component={NewsList} />
         <Redirect exact from="/" to="/tabs/home" />
       </IonRouterOutlet>
 

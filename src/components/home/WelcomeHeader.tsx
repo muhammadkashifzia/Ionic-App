@@ -1,46 +1,68 @@
 import { useEffect, useState } from 'react';
-import {
-  IonText,
-  IonIcon,
-} from '@ionic/react';
+import { IonText, IonIcon } from '@ionic/react';
 import { notificationsOutline, logOutOutline } from 'ionicons/icons';
-import logoutSvg from '../../assets/svgs/logout.svg';
 import { useHistory } from 'react-router-dom';
-
+import { Storage } from '@capacitor/storage'; // Corrected import
+import { useGetAllAssessmentsPoints } from '../../hooks/useAssessments';
+import logoutSvg from '../../assets/svgs/logout.svg';
 const WelcomeHeader: React.FC = () => {
   const [userName, setUserName] = useState<string>('');
   const [allPoints, setAllPoints] = useState<number>(120);
- 
+  const { data, refetch } = useGetAllAssessmentsPoints({});
   const history = useHistory();
 
   const logout = async () => {
     history.push('/signin');
   };
 
+  useEffect(() => {
+    const fetchUser = async () => {
+      try {
+        const userLocal = await Storage.get({ key: 'userValue' }); // Fixed AsyncStorage usage
+        if (userLocal.value) {
+          const parsedUser = JSON.parse(userLocal.value);
+          setUserName(parsedUser.user?.name || 'Guest');
+        }
+      } catch (error) {
+        console.error('Error fetching user data:', error);
+      }
+    };
+    fetchUser();
+  }, []);
+
+  useEffect(() => {
+    refetch();
+  }, []);
+
+  useEffect(() => {
+    if (data) {
+      setAllPoints(data.data?.totalPointRating || 0); // Fixed typo
+    }
+  }, [data]);
+
   return (
-    <div className="bg-[#199A8E] px-6 pt-[14px] pb-[25.72px] text-white relative z-10"> 
+    <div className="bg-[#199A8E] px-6 pt-[14px] pb-[25.72px] text-white relative z-10">
       <div className="flex justify-between">
         <div>
           <p className="text-lg">こんにちは、{userName}さん 👋 </p>
           <p className="block text-sm">本アプリへお帰りなさい！</p>
           <div className="mt-[10px]">
             <p className="text-xl font-semibold mb-[13px]">今月の合計ポイント ✨</p>
-            <div className="flex items-center gap-2 mt-1">
+            <div className="flex items-center gap-[5px] mt-1">
               <p className="bg-[#126E66] px-3 py-1 rounded-full text-[14px]">{allPoints}ポイント</p>
-              <p className='text-[14px]'>継続して頑張りましょう。</p>
+              <p className="text-[14px]">継続して頑張りましょう。</p>
             </div>
           </div>
         </div>
-        <div className='gap-3 flex items-start'>
+        <div className="gap-[2px] inline-flex items-start">
           <button>
             <IonIcon icon={notificationsOutline} className="text-white text-2xl" />
           </button>
           <button onClick={logout}>
-            <IonIcon icon={logoutSvg} className="text-white text-2xl" />
+          <IonIcon icon={logoutSvg} className="text-white text-2xl" />
           </button>
         </div>
       </div>
-    
     </div>
   );
 };

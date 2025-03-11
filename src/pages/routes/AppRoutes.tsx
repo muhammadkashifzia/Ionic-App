@@ -9,10 +9,10 @@ import Success from "../../pages/auth/Success.js";
 import ForgotPassword from "../../pages/auth/ForgotPassword.js";
 import NewPassword from "../../pages/auth/NewPassword.js";
 import { useOnboarding } from "../context/OnboardingContext";
-import Onboarding1 from "../onboarding/Onboarding1";
+import BoardingOne from "../onboarding/OnBoardingOne";
 import Onboarding2 from "../onboarding/Onboarding2";
 import Onboarding3 from "../onboarding/Onboarding3";
-
+import Onboarding4 from "../onboarding/Onboarding4";
 import Tabs from "../Tabs";
 import "../../theme/global.css";
 
@@ -25,10 +25,10 @@ const AppRoutes: React.FC = () => {
     {isOnboarded && <Redirect exact from='/' to='/onboarding1' />}
 
     {/* Onboarding Routes */}
-    <Route exact path='/onboarding1' component={Onboarding1} />
+    <Route exact path='/onboarding1' component={BoardingOne} />
     <Route exact path='/onboarding2' component={Onboarding2} />
     <Route exact path='/onboarding3' component={Onboarding3} />
-  
+    <Route exact path='/onboarding4' component={Onboarding4} />
 
     {/* Authentication Routes */}
     <Route exact path='/signin' component={SignIn} />
